@@ -12,6 +12,7 @@
     "@anthropic-ai/sdk": "^0.32.1",
     "cheerio": "^1.0.0",
     "next": "15.1.6",
+    "puppeteer": "^24.37.3",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },
