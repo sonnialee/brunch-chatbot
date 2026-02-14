@@ -8,16 +8,26 @@ async function fetchArticleContent(url: string, browser: any): Promise<string> {
   const page = await browser.newPage();
 
   try {
-    await page.goto(url, { waitUntil: 'networkidle2', timeout: 30000 });
+    // Navigate to the page
+    await page.goto(url, {
+      waitUntil: 'networkidle0',
+      timeout: 60000
+    });
+
+    // Wait for the content to be loaded
+    await page.waitForSelector('.wrap_body', { timeout: 10000 });
+
+    // Wait an additional moment for dynamic content
+    await page.waitForTimeout(2000);
 
     // Extract article content from the page
     const content = await page.evaluate(() => {
-      // Try multiple selectors to find the article content
+      // Find the article content
       const contentDiv = document.querySelector('.wrap_body');
       if (!contentDiv) return '';
 
-      // Get all paragraphs and headings
-      const elements = contentDiv.querySelectorAll('p, h1, h2, h3, h4, h5, h6, li');
+      // Get all text content with better selectors
+      const elements = contentDiv.querySelectorAll('.wrap_item p, .wrap_item h1, .wrap_item h2, .wrap_item h3, .wrap_item h4, .wrap_item li, p.text');
       const textArray: string[] = [];
 
       elements.forEach(el => {
@@ -26,6 +36,12 @@ async function fetchArticleContent(url: string, browser: any): Promise<string> {
           textArray.push(text);
         }
       });
+
+      // If nothing found, try alternative selector
+      if (textArray.length === 0) {
+        const allText = contentDiv.textContent?.trim();
+        if (allText) return allText;
+      }
 
       return textArray.join('\n\n');
     });
