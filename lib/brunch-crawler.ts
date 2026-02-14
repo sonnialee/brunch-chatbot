@@ -9,9 +9,13 @@ export async function fetchArticleList(): Promise<{ title: string; url: string }
     const response = await fetch(`${BRUNCH_API_BASE}/article/${BRUNCH_PROFILE}`);
     const data = await response.json();
 
-    return data.articles.map((article: any) => ({
+    if (!data.data || !data.data.list) {
+      throw new Error('Invalid API response structure');
+    }
+
+    return data.data.list.map((article: any) => ({
       title: article.title,
-      url: `https://brunch.co.kr/${article.url}`
+      url: `https://brunch.co.kr/${article.contentId}`
     }));
   } catch (error) {
     console.error('Failed to fetch article list:', error);
