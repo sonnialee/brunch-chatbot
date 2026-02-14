@@ -5,6 +5,7 @@ import path from 'path';
 
 const anthropic = new Anthropic({
   apiKey: process.env.ANTHROPIC_API_KEY,
+  baseURL: 'https://api.anthropic.com',
 });
 
 export async function loadArticles(): Promise<BrunchArticle[]> {
