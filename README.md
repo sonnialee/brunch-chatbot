@@ -1,13 +1,19 @@
-# Brunch Chatbot
+# 브런치 챗봇 🤖
 
-AI 챗봇으로 브런치 글 기반 커리어 조언 제공
+시영님의 브런치 글을 기반으로 한 커리어 상담 챗봇
 
-## 기능
+> **최종 업데이트:** 2026-02-15
+> **상태:** 개발 완료, 배포 준비 중
 
-- 26개 브런치 글 기반 대화형 AI
-- 이직, 이력서, PM 업무, AI 활용 관련 조언
-- Claude API 기반 자연스러운 대화
-- 실시간 채팅 인터페이스
+---
+
+## ✨ 주요 기능
+
+- ✅ **브런치 글 20개 기반** - 실제 경험과 노하우 반영
+- ✅ **자연스러운 대화** - 실제 카톡 대화 패턴 분석 반영
+- ✅ **진중한 말투** - 전문적이면서도 친근한 커리어 상담 톤
+- ✅ **실시간 채팅** - 빠른 응답 속도
+- ✅ **대화 히스토리** - 이전 대화 맥락 유지
 
 ## 기술 스택
 
@@ -130,16 +136,45 @@ brunch-chatbot/
 }
 ```
 
-## 문서
+## 📚 문서
 
-- 디자인: `docs/plans/2026-02-13-brunch-chatbot-design.md`
-- 구현 계획: `docs/plans/2026-02-13-brunch-chatbot-implementation.md`
+- **개발 로그:** [`docs/DEVELOPMENT_LOG.md`](docs/DEVELOPMENT_LOG.md) - 상세 작업 내역 및 다음 작업 시 참고 자료 ⭐
+- **대화 가이드:** [`lib/conversation-guide.ts`](lib/conversation-guide.ts) - 실제 카톡 패턴 분석 결과
+- **디자인:** `docs/plans/2026-02-13-brunch-chatbot-design.md`
+- **구현 계획:** `docs/plans/2026-02-13-brunch-chatbot-implementation.md`
 
-## 개발
+> 💡 **다음 작업 시 참고:** `docs/DEVELOPMENT_LOG.md` 문서를 먼저 확인하세요!
+
+## 🚀 다음 단계 (TODO)
+
+### 1. 디자인 개선
+- [ ] UI/UX 개선 (색상, 레이아웃, 로고)
+- [ ] 브랜딩 적용
+- [ ] 반응형 모바일 대응
+- [ ] 로딩 상태 개선
+
+### 2. Vercel 배포
+- [ ] GitHub 푸시
+- [ ] Vercel 프로젝트 생성
+- [ ] 환경 변수 설정
+- [ ] 도메인 연결 (선택)
+
+### 3. 기능 개선 (선택)
+- [ ] 스트리밍 답변
+- [ ] 대화 히스토리 저장
+- [ ] 피드백 수집 기능
+- [ ] 분석 도구 연결
+
+---
+
+## 🛠️ 개발 명령어
 
 ```bash
 # 개발 서버 실행
 npm run dev
+
+# 브런치 글 업데이트
+curl http://localhost:3002/api/crawl
 
 # 빌드
 npm run build
