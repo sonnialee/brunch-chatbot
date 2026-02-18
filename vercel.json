@@ -1,0 +1,11 @@
+{
+  "env": {
+    "NODE_ENV": "production",
+    "DEBUG": "*"
+  },
+  "functions": {
+    "app/api/**/*.ts": {
+      "maxDuration": 30
+    }
+  }
+}

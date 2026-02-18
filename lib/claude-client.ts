@@ -104,23 +104,27 @@ export async function chat(
   conversationHistory: Array<{ role: 'user' | 'assistant'; content: string }> = []
 ) {
   try {
-    console.log('Loading articles...');
+    console.log('[DEBUG] Step 1: Loading articles...');
     const articles = await loadArticles();
-    console.log(`Loaded ${articles.length} articles`);
+    console.log(`[DEBUG] Step 2: Loaded ${articles.length} articles`);
 
     if (!process.env.ANTHROPIC_API_KEY) {
+      console.error('[DEBUG] ANTHROPIC_API_KEY is missing!');
       throw new Error('ANTHROPIC_API_KEY is not set');
     }
+    console.log('[DEBUG] Step 3: API key confirmed');
 
+    console.log('[DEBUG] Step 4: Building system prompt...');
     const systemPrompt = buildSystemPrompt(articles);
-    console.log('System prompt built, length:', systemPrompt.length);
+    console.log(`[DEBUG] Step 5: System prompt built, length: ${systemPrompt.length} characters`);
 
     const messages = [
       ...conversationHistory,
       { role: 'user' as const, content: userMessage }
     ];
+    console.log(`[DEBUG] Step 6: Messages array created, count: ${messages.length}`);
 
-    console.log('Calling Anthropic API...');
+    console.log('[DEBUG] Step 7: Calling Anthropic API...');
     const response = await anthropic.messages.create({
       model: 'claude-sonnet-4-5-20250929',
       max_tokens: 2000,
@@ -128,12 +132,19 @@ export async function chat(
       messages: messages,
     });
 
-    console.log('API response received');
-    return response.content[0].type === 'text'
+    console.log('[DEBUG] Step 8: API response received successfully');
+    const result = response.content[0].type === 'text'
       ? response.content[0].text
       : '';
+    console.log(`[DEBUG] Step 9: Returning result, length: ${result.length}`);
+    return result;
   } catch (error) {
-    console.error('Error in chat function:', error);
+    console.error('[DEBUG] ERROR in chat function:', error);
+    if (error instanceof Error) {
+      console.error('[DEBUG] Error name:', error.name);
+      console.error('[DEBUG] Error message:', error.message);
+      console.error('[DEBUG] Error stack:', error.stack);
+    }
     throw error;
   }
 }
