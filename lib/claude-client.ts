@@ -1,7 +1,6 @@
 import Anthropic from '@anthropic-ai/sdk';
 import type { BrunchArticle } from './types';
-import { readFile } from 'fs/promises';
-import path from 'path';
+import articlesData from '@/data/articles.json';
 
 const anthropic = new Anthropic({
   apiKey: process.env.ANTHROPIC_API_KEY,
@@ -10,9 +9,7 @@ const anthropic = new Anthropic({
 
 export async function loadArticles(): Promise<BrunchArticle[]> {
   try {
-    const dataPath = path.join(process.cwd(), 'data', 'articles.json');
-    const data = await readFile(dataPath, 'utf-8');
-    return JSON.parse(data);
+    return articlesData as BrunchArticle[];
   } catch (error) {
     console.error('Failed to load articles:', error);
     return [];
