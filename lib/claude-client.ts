@@ -106,22 +106,37 @@ export async function chat(
   userMessage: string,
   conversationHistory: Array<{ role: 'user' | 'assistant'; content: string }> = []
 ) {
-  const articles = await loadArticles();
-  const systemPrompt = buildSystemPrompt(articles);
+  try {
+    console.log('Loading articles...');
+    const articles = await loadArticles();
+    console.log(`Loaded ${articles.length} articles`);
 
-  const messages = [
-    ...conversationHistory,
-    { role: 'user' as const, content: userMessage }
-  ];
+    if (!process.env.ANTHROPIC_API_KEY) {
+      throw new Error('ANTHROPIC_API_KEY is not set');
+    }
 
-  const response = await anthropic.messages.create({
-    model: 'claude-sonnet-4-5-20250929',
-    max_tokens: 2000,
-    system: systemPrompt,
-    messages: messages,
-  });
+    const systemPrompt = buildSystemPrompt(articles);
+    console.log('System prompt built, length:', systemPrompt.length);
 
-  return response.content[0].type === 'text'
-    ? response.content[0].text
-    : '';
+    const messages = [
+      ...conversationHistory,
+      { role: 'user' as const, content: userMessage }
+    ];
+
+    console.log('Calling Anthropic API...');
+    const response = await anthropic.messages.create({
+      model: 'claude-sonnet-4-5-20250929',
+      max_tokens: 2000,
+      system: systemPrompt,
+      messages: messages,
+    });
+
+    console.log('API response received');
+    return response.content[0].type === 'text'
+      ? response.content[0].text
+      : '';
+  } catch (error) {
+    console.error('Error in chat function:', error);
+    throw error;
+  }
 }

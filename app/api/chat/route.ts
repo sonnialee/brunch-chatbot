@@ -20,8 +20,9 @@ export async function POST(request: Request) {
     });
   } catch (error) {
     console.error('Chat error:', error);
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
     return NextResponse.json(
-      { success: false, error: 'Failed to generate response' },
+      { success: false, error: 'Failed to generate response', details: errorMessage },
       { status: 500 }
     );
   }
