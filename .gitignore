@@ -40,5 +40,5 @@ next-env.d.ts
 *.swo
 
 # Data cache
-data/articles.json
+# data/articles.json - keeping this in git for production
 crawl-now.ts
