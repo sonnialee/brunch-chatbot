@@ -3,7 +3,7 @@ import type { BrunchArticle } from './types';
 import articlesData from '@/data/articles.json';
 
 const anthropic = new Anthropic({
-  apiKey: process.env.ANTHROPIC_API_KEY,
+  apiKey: process.env.ANTHROPIC_API_KEY?.trim(),
   baseURL: 'https://api.anthropic.com',
 });
 
