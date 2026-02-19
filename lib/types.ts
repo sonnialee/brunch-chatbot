@@ -4,3 +4,7 @@ export interface BrunchArticle {
   content: string;
   date?: string;
 }
+
+export interface ArticleWithEmbedding extends BrunchArticle {
+  embedding: number[];
+}
