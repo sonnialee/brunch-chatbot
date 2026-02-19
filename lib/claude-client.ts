@@ -1,6 +1,7 @@
 import Anthropic from '@anthropic-ai/sdk';
 import type { BrunchArticle } from './types';
 import articlesData from '@/data/articles.json';
+import { retrieveRelevantArticles } from './retrieval';
 
 const anthropic = new Anthropic({
   apiKey: process.env.ANTHROPIC_API_KEY?.trim(),
@@ -104,9 +105,19 @@ export async function chat(
   conversationHistory: Array<{ role: 'user' | 'assistant'; content: string }> = []
 ) {
   try {
-    console.log('[DEBUG] Step 1: Loading articles...');
-    const articles = await loadArticles();
-    console.log(`[DEBUG] Step 2: Loaded ${articles.length} articles`);
+    console.log('[DEBUG] Step 1: Retrieving relevant articles...');
+
+    // Retrieve top 5 most relevant articles
+    const relevantArticles = await retrieveRelevantArticles(userMessage, 5);
+
+    // Fallback to all articles if retrieval fails
+    let articles = relevantArticles;
+    if (articles.length === 0) {
+      console.warn('[DEBUG] Retrieval returned 0 articles, falling back to all articles');
+      articles = await loadArticles();
+    }
+
+    console.log(`[DEBUG] Step 2: Using ${articles.length} articles for context`);
 
     if (!process.env.ANTHROPIC_API_KEY) {
       console.error('[DEBUG] ANTHROPIC_API_KEY is missing!');
