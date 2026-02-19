@@ -3,8 +3,10 @@
 @tailwind utilities;
 
 /* Mobile overscroll prevention */
+/* Note: Prevents bounce on Android/Chrome. iOS Safari bounce requires */
+/* more aggressive techniques (position: fixed) that may affect layout. */
 @media (max-width: 768px) {
-  body {
+  html, body {
     overscroll-behavior: none;
   }
 }
