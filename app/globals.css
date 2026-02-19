@@ -1,3 +1,10 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Mobile overscroll prevention */
+@media (max-width: 768px) {
+  body {
+    overscroll-behavior: none;
+  }
+}
