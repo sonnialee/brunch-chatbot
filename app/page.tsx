@@ -126,7 +126,7 @@ export default function Home() {
       </div>
 
       {/* Input */}
-      <div className="bg-white border-t border-gray-200 px-6 py-4">
+      <div className="bg-white border-t border-gray-200 px-6 py-4 fixed bottom-0 left-0 right-0 z-50 md:relative md:bottom-auto pb-[env(safe-area-inset-bottom)]">
         <form onSubmit={sendMessage} className="flex gap-2">
           <input
             type="text"
