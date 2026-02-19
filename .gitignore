@@ -42,3 +42,6 @@ next-env.d.ts
 # Data cache
 # data/articles.json - keeping this in git for production
 crawl-now.ts
+
+# embeddings (generated at build time)
+data/embeddings.json
