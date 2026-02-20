@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
+import Link from 'next/link';
 
 interface Message {
   role: 'user' | 'assistant';
@@ -69,12 +70,22 @@ export default function Home() {
     <div className="flex flex-col h-screen bg-gray-50">
       {/* Header */}
       <header className="bg-white border-b border-gray-200 px-6 py-4">
-        <h1 className="text-2xl font-bold text-gray-900">
-          셩PM의 브런치 조언 봇
-        </h1>
-        <p className="text-sm text-gray-600 mt-1">
-          이직, 이력서, AI 활용에 대한 조언을 받아보세요
-        </p>
+        <div className="flex justify-between items-center">
+          <div>
+            <h1 className="text-2xl font-bold text-gray-900">
+              셩PM의 브런치 조언 봇
+            </h1>
+            <p className="text-sm text-gray-600 mt-1">
+              이직, 이력서, AI 활용에 대한 조언을 받아보세요
+            </p>
+          </div>
+          <Link
+            href="/articles"
+            className="px-4 py-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors flex items-center gap-1 whitespace-nowrap"
+          >
+            📝 브런치 글
+          </Link>
+        </div>
       </header>
 
       {/* Messages */}
