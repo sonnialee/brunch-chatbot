@@ -4,15 +4,20 @@ import Link from 'next/link';
 import type { BrunchArticle } from '@/lib/types';
 
 function loadArticles(): BrunchArticle[] {
-  const filePath = path.join(process.cwd(), 'data', 'articles.json');
-  const fileContent = fs.readFileSync(filePath, 'utf-8');
-  const articles: BrunchArticle[] = JSON.parse(fileContent);
+  try {
+    const filePath = path.join(process.cwd(), 'data', 'articles.json');
+    const fileContent = fs.readFileSync(filePath, 'utf-8');
+    const articles: BrunchArticle[] = JSON.parse(fileContent);
 
-  // 날짜 역순 정렬 (최신 글 먼저)
-  return articles.sort((a, b) => {
-    if (!a.date || !b.date) return 0;
-    return new Date(b.date).getTime() - new Date(a.date).getTime();
-  });
+    // 날짜 역순 정렬 (최신 글 먼저)
+    return articles.sort((a, b) => {
+      if (!a.date || !b.date) return 0;
+      return new Date(b.date).getTime() - new Date(a.date).getTime();
+    });
+  } catch (error) {
+    console.error('Failed to load articles:', error);
+    return [];
+  }
 }
 
 export default function ArticlesPage() {
