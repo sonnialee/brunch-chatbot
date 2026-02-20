@@ -86,7 +86,9 @@ export async function crawlAllArticles(): Promise<BrunchArticle[]> {
         title: article.title,
         url: url,
         content: content || article.contentSummary || '',
-        date: article.publishTime ? new Date(article.publishTime).toISOString() : undefined
+        date: article.publishTime ? new Date(article.publishTime).toISOString() : undefined,
+        thumbnail: article.articleImageForHome || null,
+        subTitle: article.subTitle || undefined
       });
 
       // Rate limiting: wait 1 second between requests
