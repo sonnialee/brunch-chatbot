@@ -3,6 +3,8 @@ export interface BrunchArticle {
   url: string;
   content: string;
   date?: string;
+  thumbnail?: string | null;
+  subTitle?: string;
 }
 
 export interface ArticleWithEmbedding extends BrunchArticle {
