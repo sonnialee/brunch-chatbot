@@ -10,6 +10,7 @@
 ## ✨ 주요 기능
 
 - ✅ **브런치 글 20개 기반** - 실제 경험과 노하우 반영
+- ✅ **브런치 글 목록** - 썸네일과 함께 모든 글 확인 가능
 - ✅ **자연스러운 대화** - 실제 카톡 대화 패턴 분석 반영
 - ✅ **진중한 말투** - 전문적이면서도 친근한 커리어 상담 톤
 - ✅ **실시간 채팅** - 빠른 응답 속도
@@ -85,17 +86,20 @@ git push -u origin main
 brunch-chatbot/
 ├── app/
 │   ├── page.tsx              # 채팅 UI
+│   ├── articles/
+│   │   └── page.tsx          # 브런치 글 목록 (신규)
 │   ├── layout.tsx            # 레이아웃
 │   ├── globals.css           # 글로벌 스타일
 │   └── api/
 │       ├── chat/route.ts     # 채팅 API
 │       └── crawl/route.ts    # 크롤링 API
 ├── lib/
-│   ├── brunch-crawler.ts     # 브런치 크롤러
+│   ├── brunch-crawler.ts     # 브런치 크롤러 (썸네일 지원)
 │   ├── claude-client.ts      # Claude API 클라이언트
 │   └── types.ts              # 타입 정의
 ├── data/
-│   └── articles.json         # 크롤링된 글 데이터
+│   ├── articles.json         # 크롤링된 글 데이터 (썸네일 포함)
+│   └── embeddings.json       # 임베딩 데이터
 └── docs/
     └── plans/                # 디자인 & 구현 계획
 ```
