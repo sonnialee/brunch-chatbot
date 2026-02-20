@@ -2,6 +2,12 @@ import fs from 'fs';
 import path from 'path';
 import Link from 'next/link';
 import type { BrunchArticle } from '@/lib/types';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: '브런치 글 목록 | 셩PM의 브런치 조언 봇',
+  description: '시영님의 브런치 글 모음입니다. 이직, 커리어, PM, AI 활용에 대한 다양한 이야기를 확인하세요.',
+};
 
 function loadArticles(): BrunchArticle[] {
   try {
