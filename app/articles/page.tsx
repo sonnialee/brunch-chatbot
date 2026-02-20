@@ -58,7 +58,7 @@ export default function ArticlesPage() {
             >
               <div className="flex flex-col md:flex-row">
                 {/* Thumbnail */}
-                <div className="w-full md:w-32 h-32 flex-shrink-0">
+                <div className="w-full md:w-32 h-48 md:h-32 flex-shrink-0">
                   {article.thumbnail ? (
                     <img
                       src={article.thumbnail}
@@ -67,7 +67,7 @@ export default function ArticlesPage() {
                     />
                   ) : (
                     <div className="w-full h-full bg-gray-200 flex items-center justify-center">
-                      <span className="text-gray-400 text-sm">📝</span>
+                      <span className="text-gray-400 text-2xl md:text-sm">📝</span>
                     </div>
                   )}
                 </div>
